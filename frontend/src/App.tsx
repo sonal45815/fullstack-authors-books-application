@@ -180,7 +180,7 @@ function App() {
   return (
     <div className='h-screen font-mono p-4'>
       <header className='py-2 border-b'>
-        <h1 className='text-center font-bold text-5xl'>MultiCloud with Devops by VEERA Nareshit Dashboard</h1>
+        <h1 className='text-center font-bold text-5xl'>MultiCloud with Devops by Sonal SunFlower Lab Dashboard</h1>
       </header>
       <main className='py-4 px-4 space-y-6'>
         <div className='space-x-4'>
