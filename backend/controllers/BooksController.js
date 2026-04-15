@@ -1,131 +1,139 @@
 const db = require('../configs/db');
 
-function BooksController() { }
+function BooksController() {}
 
-const getQuery = `SELECT b.id as id, b.title as title, b.releaseDate as releaseDate, b.description as description, b.pages as pages,
- b.createdAt as createdAt, b.updatedAt as updatedAt, a.id as authorId, a.name as name, a.birthday as birthday, a.bio as bio FROM book b INNER JOIN author a on b.authorId = a.id`;
+const getQuery = `
+  SELECT
+    b.id AS id,
+    b.title AS title,
+    b.releaseDate AS releaseDate,
+    b.description AS description,
+    b.pages AS pages,
+    b.createdAt AS createdAt,
+    b.updatedAt AS updatedAt,
+    a.id AS authorId,
+    a.name AS name,
+    a.birthday AS birthday,
+    a.bio AS bio
+  FROM book b
+  INNER JOIN author a ON b.authorId = a.id
+`;
 
-BooksController.prototype.get = async (req, res) => {
-   try {
+BooksController.prototype.get = (req, res) => {
+  db.query(getQuery, (err, books) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        message: 'Error executing query.',
+      });
+    }
+
+    return res.status(200).json({
+      books,
+    });
+  });
+};
+
+BooksController.prototype.create = (req, res) => {
+  const {
+    title,
+    description,
+    releaseDate,
+    pages,
+    author: authorId,
+  } = req.body;
+
+  db.query(
+    'INSERT INTO book (title, releaseDate, description, pages, authorId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)',
+    [title, releaseDate, description, pages, authorId],
+    (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({
+          message: 'Error executing query.',
+        });
+      }
+
       db.query(getQuery, (err, books) => {
-         if (err) {
-            throw new Error("Error executing query.");
-         }
+        if (err) {
+          console.error(err);
+          return res.status(500).json({
+            message: 'Error executing query.',
+          });
+        }
 
-         res.status(200).json({
-            books: books,
-         });
+        return res.status(200).json({
+          message: 'Book created successfully!',
+          books,
+        });
       });
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-         message:
-            "Something unexpected has happened. Please try again later.",
-      });
-   }
+    }
+  );
 };
 
-BooksController.prototype.create = async (req, res) => {
-   try {
-      const {
-         title,
-         description,
-         releaseDate,
-         pages,
-         author: authorId,
-      } = req.body;
+BooksController.prototype.update = (req, res) => {
+  const bookId = req.params.id;
+  const {
+    title,
+    description,
+    releaseDate,
+    pages,
+    author: authorId,
+  } = req.body;
 
-      db.query('INSERT INTO book (title, releaseDate, description, pages, authorId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)', [
-         title, new Date(releaseDate), description, pages, authorId, new Date(), new Date()], (err) => {
-            if (err) {
-               throw new Error("Error executing query.", err);
-            }
+  db.query(
+    'UPDATE book SET title = ?, releaseDate = ?, description = ?, pages = ?, authorId = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?',
+    [title, releaseDate, description, pages, authorId, bookId],
+    (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({
+          message: 'Error executing query.',
+        });
+      }
 
-            db.query(getQuery, (err, books) => {
-               if (err) {
-                  throw new Error("Error executing query.");
-               }
+      db.query(getQuery, (err, books) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({
+            message: 'Error executing query.',
+          });
+        }
 
-               return res.status(200).json({
-                  message: `Book created successfully!`,
-                  books: books,
-               });
-            });
-         });
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-         message:
-            "Something unexpected has happened. Please try again later.",
+        return res.status(200).json({
+          message: 'Book updated successfully!',
+          books,
+        });
       });
-   }
+    }
+  );
 };
 
-BooksController.prototype.update = async (req, res) => {
-   try {
-      const bookId = req.params.id;
-      const {
-         title,
-         description,
-         releaseDate,
-         pages,
-         author: authorId,
-      } = req.body;
+BooksController.prototype.delete = (req, res) => {
+  const bookId = req.params.id;
 
-      db.query('UPDATE book SET title = ?, releaseDate = ?, description = ?, pages = ?, authorId = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?', [
-         title, new Date(releaseDate), description, pages, authorId, bookId], (err) => {
-            if (err) {
-               console.log(err);
-               throw new Error("Error executing query.");
-            }
-
-            db.query(getQuery, (err, books) => {
-               if (err) {
-                  throw new Error("Error executing query.");
-               }
-
-               return res.status(200).json({
-                  message: `Book updated successfully!`,
-                  books: books,
-               });
-            });
-         });
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-         message:
-            "Something unexpected has happened. Please try again later.",
+  db.query('DELETE FROM book WHERE id = ?', [bookId], (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({
+        message: 'Error executing query.',
       });
-   }
-};
+    }
 
-BooksController.prototype.delete = async (req, res) => {
-   try {
-      const bookId = req.params.id;
+    db.query(getQuery, (err, books) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({
+          message: 'Error executing query.',
+        });
+      }
 
-      db.query('DELETE FROM book WHERE id = ?', [bookId], (err) => {
-         if (err) {
-            throw new Error("Error executing query.");
-         }
-
-         db.query(getQuery, (err, books) => {
-            if (err) {
-               throw new Error("Error executing query.");
-            }
-
-            return res.status(200).json({
-               message: `Book deleted successfully!`,
-               books: books,
-            });
-         });
+      return res.status(200).json({
+        message: 'Book deleted successfully!',
+        books,
       });
-   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-         message:
-            "Something unexpected has happened. Please try again later.",
-      });
-   }
+    });
+  });
 };
 
 module.exports = new BooksController();
