@@ -9,9 +9,9 @@ create a rds database in same vpc
 
 #### Install GIT
 ```
-sudo yum update -y
+sudo apt update -y
 
-sudo yum install git -y
+sudo apt install git -y
 
 git — version
 ```
@@ -20,7 +20,7 @@ git — version
 1. To install node version manager (nvm)
 ```
 curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-sudo yum install -y nodejs
+sudo apt install -y nodejs
 ```
 ### Install pm2
 ```
@@ -33,7 +33,7 @@ npm install -g pm2
 ```
 ### Install mysql or mariadb for database initilization
 ```
-sudo yum install mariadb105-server -y
+sudo apt install mariadb105-server -y
 ```
 #### Clone repository
 ```
