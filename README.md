@@ -16,28 +16,30 @@ This project is a full-stack web application built using React js for the fronte
 # conncet to your  front end instance
 #### Install GIT
 ```
-sudo yum update -y
-
-sudo yum install git -y
-
-git — version
+sudo apt update && sudo apt upgrade -y
+sudo apt install git -y
+git --version
+sudo apt insatll -y docker
 ```
 
 #### Install node.js
 1. To install node version manager (nvm)
 ```
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
 sudo apt install -y nodejs
+node --version
+npm --version
 ```
 ### Install httpd (apache)
 ```
-sudo yum install httpd -y
-sudo systemctl start httpd
-sudo systemctl enable httpd
+sudo apt install apache2 -y
+sudo systemctl start apache2
+sudo systemctl enable apache2
+sudo ufw allow 'Apache Full'
 ```
 #### Clone repository
 ```
-git clone https://github.com/CloudTechDevOps/fullstack-autors-books-application.git
+https://github.com/sonal45815/fullstack-authors-books-application.git
 ```
 ###Switch to frontend
 ```
@@ -53,6 +55,8 @@ VITE_API_URL=http://3.85.56.86/api   // put your backend public ip or dns name
 npm install
 npm run build
 sudo cp -r dist/* /var/www/html/
+sudo systemctl restart apache2
+
 ```
 
 ### Now access the frontend with public ip 
@@ -60,26 +64,23 @@ sudo cp -r dist/* /var/www/html/
 # Setting up the Data Tier
 
 ```
-create a rds database in sasme vpc
-```
-### Setting up the Application Tier
-
-## conncet to your  backend instance
-
-#### Install GIT
-```
-sudo yum update -y
-
-sudo yum install git -y
-
-git — version
+sudo apt update
+sudo apt install -y mysql-server
+sudo systemctl start mysql
+sudo systemctl enable mysql
+sudo systemctl status mysql
+sudo mysql_secure_installation
 ```
 
 #### Install node.js
 1. To install node version manager (nvm)
 ```
-curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-sudo yum install -y nodejs
+sudo apt update && sudo apt upgrade -y
+sudo apt install git -y
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+sudo apt install -y nodejs
+sudo npm install -g pm2
+pm2 --version
 ```
 ### Install pm2
 ```
@@ -93,10 +94,14 @@ npm install -g pm2
 ### Install mysql or mariadb for database initilization
 ```
 sudo yum install mariadb105-server -y
+sudo apt install mariadb-server -y
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+sudo mysql_secure_installation  # Secure it
 ```
 #### Clone repository
 ```
-git clone https://github.com/CloudTechDevOps/fullstack-autors-books-application.git
+git clone https://github.com/sonal45815/fullstack-authors-books-application.git
 ```
 ### Switch to backend
 ```
@@ -109,19 +114,18 @@ cd backend
 const mysql = require('mysql2');
 
 const db = mysql.createConnection({
-   host: 'rds endpoint',
-   port: '3306',
-   user: 'radmin',
-   password: 'rds-password',
-   database: 'react_node_app'
+  host: 'mysql',
+  port: 3306,
+  user: 'sonal',
+  password: 'Sonal@45815',
+  database: 'react_node_app'
 });
 
 module.exports = db;
 ```
 ### Initilize the database 
 ```
-mysql -h <rdsendpoint> -u admin -p<rdspassword> < db.sql
-mysql -h database-1.cj6qigogwls0.us-east-1.rds.amazonaws.com -u admin -pveeradon < db.sql
+mysql -u sonal -p react_node_app < db.sql
 
 ```
 ### Everything is completed run the follwing commnds for backend execution
