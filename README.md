@@ -28,7 +28,7 @@ git — version
 1. To install node version manager (nvm)
 ```
 curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-sudo yum install -y nodejs
+sudo apt install -y nodejs
 ```
 ### Install httpd (apache)
 ```
