@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-container
-        image: sonal45815/authors-backend:2
+        image: sonal45815/authors-backend:3
         ports:
         - containerPort: 80
 ---
