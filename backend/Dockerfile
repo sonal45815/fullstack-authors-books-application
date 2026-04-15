@@ -9,6 +9,6 @@ RUN npm install -g pm2
 
 COPY . .
 
-EXPOSE 80  # Changed from 80 (works without root)
+EXPOSE 80  
 
 CMD ["pm2-runtime", "start", "server.js", "--name", "backend-api"]
