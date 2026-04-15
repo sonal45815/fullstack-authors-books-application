@@ -261,7 +261,7 @@ function AuthorsPage() {
       <div className='h-screen font-mono p-4'>
          <header className='relative py-2 border-b'>
             <Button size='large' className='rounded-none absolute'>
-               <Link to={`/`}>⬅️ MultiCloud with Devops by VEERA Nareshit Dashboard</Link>
+               <Link to={`/`}>⬅️ MultiCloud with Devops by Sonal SunFlower Lab Dashboard</Link>
             </Button>
             <h1 className='text-center font-bold text-5xl'>MANAGE AUTHORS</h1>
          </header>
