@@ -133,6 +133,7 @@ mysql -u sonal -p react_node_app < db.sql
 ```
 ### Everything is completed run the follwing commnds for backend execution
 ```
+sudo kubectl apply -f mysql.yaml
 sudo docker build -t backend .
 docker login
 docker tag frontend:latest sonal45815/frontend-app:latest
