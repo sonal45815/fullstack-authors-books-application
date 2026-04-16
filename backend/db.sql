@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `createdAt` date NOT NULL, 
   `updatedAt` date NOT NULL, 
   PRIMARY KEY (`id`) 
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci; 
 
 CREATE TABLE IF NOT EXISTS `book` ( 
   `id` int NOT NULL AUTO_INCREMENT, 
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `book` (
   PRIMARY KEY (`id`), 
   KEY `FK_66a4f0f47943a0d99c16ecf90b2` (`authorId`), 
   CONSTRAINT `FK_66a4f0f47943a0d99c16ecf90b2` FOREIGN KEY (`authorId`) REFERENCES `author` (`id`) 
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Insert Authors
 INSERT INTO `author` (`id`, `name`, `birthday`, `bio`, `createdAt`, `updatedAt`) VALUES
