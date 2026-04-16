@@ -143,6 +143,23 @@ docker ps
 docker tag frontend:latest sonal45815/frontend-app:latest
 docker push sonal45815/frontend-app:latest
 ```
+
+### k3s installation and ArgoCD installation
+```
+curl -sfL https://get.k3s.io | sh -
+sudo kubectl get nodes
+sudo kubectl get pods -A
+
+sudo kubectl create namespace argocd
+sudo kubectl apply --server-side -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+sudo kubectl port-forward svc/argocd-server -n argocd 8080:443
+https://localhost:8080
+
+#username: admin
+#password: sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo 
+```
+
 ### hit public ip you will get this responce 
 #### Dashboard
 ![Dashboard](./frontend/public/ss/dashboard.png)
