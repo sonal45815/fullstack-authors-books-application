@@ -3,7 +3,7 @@ This project is a full-stack web application built using React js for the fronte
 
 
 ## User Interface Screenshots 
-
+![Dashboard](./frontend/public/ss/welcome-page.png)
 
 #### Books
 ![Dashboard](./frontend/public/ss/books.png)
@@ -163,7 +163,7 @@ https://localhost:8080
 
 ### hit public ip you will get this responce 
 #### Dashboard
-![Dashboard](./frontend/public/ss/dashboard.png)
+![Dashboard](./frontend/public/ss/welcome-page.png)
 
 ### add the autors and books 
                                                    thank you 
