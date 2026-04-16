@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const db = mysql.createConnection({
   host: 'mysql',
   port: 3306,
-  user: 'sonal',
+  user: 'root',
   password: 'Sonal@45815',
   database: 'react_node_app'
 });
