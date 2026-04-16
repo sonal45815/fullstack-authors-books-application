@@ -19,7 +19,7 @@ This project is a full-stack web application built using React js for the fronte
 sudo apt update && sudo apt upgrade -y
 sudo apt install git -y
 git --version
-sudo apt insatll -y docker
+sudo apt install -y docker.io
 ```
 
 #### Install node.js
