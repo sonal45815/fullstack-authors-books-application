@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-container
-        image: sonal45815/frontend-app:7
+        image: sonal45815/frontend-app:1
         ports:
         - containerPort: 80
 ---
