@@ -20,6 +20,9 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install git -y
 git --version
 sudo apt install -y docker.io
+sudo systemctl status docker
+sudo systemctl start docker
+sudo systemctl enable docker
 ```
 
 #### Install node.js
@@ -130,11 +133,15 @@ mysql -u sonal -p react_node_app < db.sql
 ```
 ### Everything is completed run the follwing commnds for backend execution
 ```
-npm install
-pm2 start server.js --name "veera"
-pm2 startup
-sudo systemctl enable pm2-root
-sudo pm2 save
+sudo docker build -t backend .
+docker login
+docker tag frontend:latest sonal45815/frontend-app:latest
+docker push sonal45815/frontend-app:latest
+sudo usermod -aG docker $USER
+newgrp docker
+docker ps
+docker tag frontend:latest sonal45815/frontend-app:latest
+docker push sonal45815/frontend-app:latest
 ```
 ### hit public ip you will get this responce 
 #### Dashboard
